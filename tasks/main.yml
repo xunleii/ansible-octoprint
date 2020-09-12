@@ -10,6 +10,22 @@
     append: yes
     groups: dialout,tty,staff
 
+- name: Clean all allowed OctoPrint user 'sudo' commands.
+  lineinfile:
+    state: absent
+    path: /etc/sudoers
+    regexp: '^{{ octoprint_user }}'
+    validate: 'visudo -cf %s'
+
+- name: Allow OctoPrint user to execute defined 'sudo' commands.
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^{{ octoprint_user }} ALL=(ALL) NOPASSWD: {{ item.value | regex_replace("^sudo ") }}$'
+    line: '{{ octoprint_user }} ALL=(ALL) NOPASSWD: {{ item.value | regex_replace("^sudo ") }}'
+    validate: 'visudo -cf %s'
+  with_items: '{{ octoprint_config_server_commands | dict2items }}'
+  when: item.value | regex_search("^sudo ")
+
 - name: Create octoprint config dir.
   file:
     path: '/home/{{ octoprint_user }}/.octoprint'

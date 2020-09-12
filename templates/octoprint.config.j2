@@ -1,9 +1,10 @@
 server:
-  host: {{octoprint_config_server_host}}
-  port: {{octoprint_config_server_port}}
+  firstRun: true
 
+  host: {{ octoprint_config_server_host }}
+  port: {{ octoprint_config_server_port }}
 {% if octoprint_config_reverse_proxy is defined %}
   reverseProxy: {{ octoprint_config_reverse_proxy }}
 {% endif %}
 
-  firstRun: true
+  commands: {{ octoprint_config_server_commands }}

@@ -12,3 +12,7 @@ octoprint_installDir: "/opt/octoprint"
 octoprint_repo: "https://github.com/OctoPrint/OctoPrint.git"
 octoprint_config_server_host: 0.0.0.0
 octoprint_config_server_port: 5000
+octoprint_config_server_commands:
+  serverRestartCommand: sudo /bin/systemctl restart octoprint
+  systemRestartCommand: sudo /sbin/shutdown -r now
+  systemShutdownCommand: sudo /sbin/shutdown -h now
