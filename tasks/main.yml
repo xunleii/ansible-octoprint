@@ -24,12 +24,6 @@
     group: '{{ octoprint_group }}'
   notify: Restart Octoprint
 
-- name: Install octoprint udev rules.
-  when: octoprint_udev_attrs is defined
-  template:
-    src: 50-3dprinter.rules.j2
-    dest: /etc/udev/rules.d/50-3dprinter.rules
-
 - name: Clone Octoprint release.
   register: octocloned
   git:
