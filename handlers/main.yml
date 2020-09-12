@@ -3,8 +3,3 @@
     name: octoprint
     state: started
     enabled: yes
-
-- name: Restart Octoprint
-  service: 
-    name: octoprint
-    state: restarted

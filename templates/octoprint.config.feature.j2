@@ -1,6 +1,0 @@
-{% if octoprint_config_feature is defined %}
-feature:
-{% for key, value in octoprint_config_feature.items() %}
-  {{key}}: {{value}}
-{% endfor %}
-{% endif %}

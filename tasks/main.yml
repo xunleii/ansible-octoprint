@@ -1,8 +1,8 @@
+---
 - name: Install dependencies for OctoPrint.
   package:
-    name: '{{ item }}'
-    state: present
-  with_items: '{{ octoprint_dependencies }}'
+    name: '{{ octoprint_dependencies }}'
+    state: latest
 
 - name: Create OctoPrint user.
   user:
@@ -16,13 +16,20 @@
     state: directory
     owner: '{{ octoprint_user }}'
 
+# Avoid config suppression on upgrade
+- name: Octoprint config exist?
+  stat: 
+    path: '/home/{{ octoprint_user }}/.octoprint/config.yaml'
+  ignore_errors: true
+  register: octoprint_config
+
 - name: Install octoprint config.
   template:
     src: octoprint.config.j2
     dest: '/home/{{ octoprint_user }}/.octoprint/config.yaml'
     owner: '{{ octoprint_user }}'
     group: '{{ octoprint_group }}'
-  notify: Restart Octoprint
+  when: octoprint_config.stat.exists == false
 
 - name: Clone Octoprint release.
   register: octocloned

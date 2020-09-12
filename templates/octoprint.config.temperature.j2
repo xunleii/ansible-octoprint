@@ -1,9 +1,0 @@
-{% if octoprint_config_temperature is defined %}
-temperature:
-  profiles:
-{% for profile in octoprint_config_temperature.profiles %}
-  - name: {{profile.name}}
-    extruder: {{profile.extruder}}
-    bed: {{profile.bed}}
-{% endfor %}
-{% endif %}

@@ -1,6 +1,0 @@
-{% if octoprint_config_gcodeViewer is defined %}
-gcodeViewer:
-{% for key, value in octoprint_config_gcodeViewer.items() %}
-  {{key}}: {{value}}
-{% endfor %}
-{% endif %}
