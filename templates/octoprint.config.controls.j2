@@ -4,7 +4,7 @@ controls:
   - name: {{item.name}}
     type: {{item.type}}
     children:
-{% for children in item.children.iteritems() %}
+{% for children in item.children.items() %}
       - name: {{children.name}}
         type: {{children.type}}
 {% if children.command is defined %}
