@@ -51,12 +51,12 @@
   register: octocloned
   git:
     repo: '{{ octoprint_repo }}'
-    dest: '{{ octoprint_installDir }}'
+    dest: '{{ octoprint_install_dir }}'
     version: '{{ octoprint_version }}'
 
 - name: Set ownership of octoprint install octoprint_install_dir.
   file:
-    path: '{{ octoprint_installDir }}'
+    path: '{{ octoprint_install_dir }}'
     recurse: yes
     owner: '{{ octoprint_user }}'
 
@@ -64,7 +64,7 @@
   when: octocloned.changed
   shell: python3 setup.py install
   args:
-    chdir: '{{  octoprint_installDir  }}'
+    chdir: '{{  octoprint_install_dir  }}'
 
 - name: Set ownership of octoprint deamon.
   file:
@@ -74,5 +74,5 @@
 - name: Setup Octorpint systemd service.
   template:
     src: octoprint.service.j2
-    dest: /etc/systemd/system/octoprint.service
+    dest: /lib/systemd/system/octoprint.service
   notify: Start Octoprint
