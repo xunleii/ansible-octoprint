@@ -34,7 +34,7 @@
 
 # Avoid config suppression on upgrade
 - name: Octoprint config exist?
-  stat: 
+  stat:
     path: '/home/{{ octoprint_user }}/.octoprint/config.yaml'
   ignore_errors: true
   register: octoprint_config
@@ -53,6 +53,7 @@
     repo: '{{ octoprint_repo }}'
     dest: '{{ octoprint_install_dir }}'
     version: '{{ octoprint_version }}'
+    depth: 1
 
 - name: Set ownership of octoprint install octoprint_install_dir.
   file:
